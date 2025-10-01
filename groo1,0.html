@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Prevención del Grooming</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f8ff;
+      margin: 0;
+      padding: 0;
+      color: #222;
+    }
+    header {
+      background: #17a864;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 20px;
+    }
+    .card {
+      background: white;
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    button {
+      background: #ffee0660;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 8px;
+      color: rgb(0, 0, 0);
+      font-weight: bold;
+      cursor: pointer;
+      margin-right: 8px;
+    }
+    button:hover { background:#ffee0646; }
+    #mensaje {
+      font-size: 1.2em;
+      font-weight: bold;
+      margin: 10px 0;
+      padding: 10px;
+      border-left: 4px solid #000000;
+      background: #ffffffa9;
+    }
+    canvas {
+      width: 100%;
+      height: 200px;
+      background: #edf6f9;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Prevención del Grooming</h1>
+    <p>Genera mensajes preventivos y visualiza cómo se difunden los mensajes positivos.</p>
+  </header>
+
+  <main>
+    <!-- Generador de mensajes -->
+    <div class="card">
+      <h2>Generador de Mensajes Preventivos</h2>
+      <p>Haz clic para recibir un mensaje de prevención contra el grooming:</p>
+      <button onclick="generarMensaje()">Generar mensaje</button>
+      <div id="mensaje">Aquí aparecerá tu mensaje</div>
+    </div>
+
+    <!-- Información adicional -->
+    <div class="card">
+      <h2>Consejos de Seguridad</h2>
+      <ul>
+        <li>No compartas fotos íntimas ni información personal con desconocidos.</li>
+        <li>Si alguien mayor insiste en hablar de temas sexuales, bloquéalo y repórtalo.</li>
+        <li>Habla siempre con un adulto de confianza si algo te incomoda en internet.</li>
+        <li>Recuerda: tu seguridad está primero.</li>
+      </ul>
+    </div>
+  </main>
+
+  <script>
+    // Lista de mensajes preventivos
+    const mensajes = [
+  "Nunca compartas tus fotos privadas con personas que no conoces.",
+  "Si alguien te pide guardar un secreto incómodo en internet, cuéntaselo a un adulto de confianza.",
+  "Bloquea y reporta a cualquier persona que insista en hablar de temas íntimos.",
+  "Recuerda: tu seguridad vale más que cualquier amistad en línea.",
+  "Nunca aceptes reunirte en persona con alguien que solo conoces de internet.",
+  "No aceptes solicitudes de amistad de desconocidos.",
+  "No compartas tu dirección ni tu colegio en redes sociales.",
+  "Si un adulto quiere hablarte en privado, cuéntaselo a tus padres o tutores.",
+  "No confíes en personas que conoces solo en línea.",
+  "Nunca accedas a videollamadas con desconocidos.",
+  "No envíes fotos tuyas con uniforme escolar.",
+  "Usa contraseñas seguras y no las compartas.",
+  "Configura la privacidad de tus redes sociales.",
+  "Bloquea y reporta a usuarios sospechosos.",
+  "Si te sientes incómodo, detén la conversación de inmediato.",
+  "No compartas tu número de teléfono con extraños.",
+  "No aceptes regalos virtuales de desconocidos.",
+  "Nunca creas que alguien que acabas de conocer en internet es tu 'mejor amigo'.",
+  "Si alguien insiste demasiado en hablar contigo, cuéntalo a un adulto.",
+  "No compartas tu ubicación en tiempo real.",
+  "Evita hablar de temas íntimos por chat.",
+  "Si un desconocido te hace sentir raro, sigue tu instinto y aléjate.",
+  "No descargues archivos de personas que no conoces.",
+  "Si alguien te presiona para que envíes fotos, di NO.",
+  "No confíes en cuentas falsas con fotos robadas.",
+  "Siempre pregunta a un adulto si tienes dudas sobre alguien en línea.",
+  "Evita juegos en línea con chat abierto sin supervisión.",
+  "Si un desconocido quiere cambiar de plataforma para hablar, cuidado.",
+  "No compartas datos de tus amigos o familiares.",
+  "No respondas a mensajes extraños en redes sociales.",
+  "Si alguien te amenaza, guarda las pruebas y muéstralas a un adulto.",
+  "Nunca actúes por miedo a perder una amistad online.",
+  "No creas todo lo que una persona dice en internet.",
+  "No confíes en personas que dicen tener tu misma edad sin pruebas.",
+  "No te dejes engañar por halagos excesivos.",
+  "Evita chats privados con gente que no conoces bien.",
+  "No envíes dinero ni recargas a personas de internet.",
+  "Si alguien quiere que mientas a tus padres, desconfía.",
+  "Mantén tu cámara apagada con personas desconocidas.",
+  "No compartas fotos en ropa interior o pijama con desconocidos.",
+  "No te sientas obligado a contestar mensajes incómodos.",
+  "Aprende a decir 'NO' sin miedo.",
+  "Habla siempre con un adulto si algo en internet te asusta.",
+  "No uses tu nombre completo en redes sociales públicas.",
+  "Denuncia cualquier perfil sospechoso.",
+  "Recuerda que no estás solo: hay ayuda y apoyo.",
+  "No aceptes trabajos o promesas de fama en internet sin verificar.",
+  "Si alguien dice que te quiere demasiado rápido, ten cuidado.",
+  "Un amigo verdadero no te pedirá secretos dañinos.",
+  "No borres pruebas si alguien te molesta: muéstralas a un adulto.",
+  "Confía en tus instintos: si algo no se siente bien, probablemente no lo es."
+    ];
+
+    let mensajeActual = "";
+    let alcance = 0;
+
+    const mensajeDiv = document.getElementById("mensaje");
+    const alcanceSpan = document.getElementById("alcance");
+    const canvas = document.getElementById("grafico");
+    const ctx = canvas.getContext("2d");
+
+    // Generar un mensaje aleatorio
+    function generarMensaje(){
+      const index = Math.floor(Math.random() * mensajes.length);
+      mensajeActual = mensajes[index];
+      mensajeDiv.textContent = mensajeActual;
+    }
+
+    // Simular compartir mensaje
+    function compartirMensaje(){
+      if(!mensajeActual){
+        alert("Primero genera un mensaje.");
+        return;
+      }
+      // Cada compartir aumenta el alcance en un rango aleatorio
+      const incremento = Math.floor(Math.random()*50) + 20;
+      alcance += incremento;
+      alcanceSpan.textContent = alcance;
+      dibujarGrafico();
+    }
+
+    // Reiniciar simulación
+    function resetSimulacion(){
+      alcance = 0;
+      alcanceSpan.textContent = alcance;
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+    }
+
+    // Dibujar gráfico de barras simple
+    function dibujarGrafico(){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      ctx.fillStyle = "#0077b6";
+      ctx.fillRect(50, canvas.height-20, alcance, -50);
+      ctx.fillText(alcance+" personas", 50, canvas.height-30);
+    }
+  </script>
+</body>
+</html>
